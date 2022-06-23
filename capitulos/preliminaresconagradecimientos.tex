@@ -15,24 +15,27 @@ La visión artificial es una disciplina científica que incluye métodos para ad
 
 La razón principal que me ha llevado a la realización de este trabajo ha sido el uso de ambas tecnologías comentadas anteriormente, dado están cada vez más en auge además de la propia curiosidad sobre el aprendizaje y funcionamiento de estas.
 
-Este trabajo tiene como finalidad el estudio de la visión artificial dentro de un marco dietético nutricional de la obesidad aprovechando las tecnologías para abordar este problema proponiendo una solución de la representación del cuerpo humano 3D con el uso único de una cámara y realizar unas comparativas sobre los modelos conseguidos para comprobar la veracidad de los datos obtenidos a partir de una red neuronal.
+Este trabajo tiene como finalidad el estudio de la visión artificial dentro de un marco dietético nutricional de la obesidad aprovechando las tecnologías para abordar este problema proponiendo una solución de la representación del cuerpo humano 3D con el uso único de imágenes y realizar unas comparativas sobre los modelos conseguidos para comprobar la veracidad de los datos obtenidos a partir de una red neuronal.
 
 
 
 \cleardoublepage %salta a nueva página impar
-\chapter*{Agradecimientos\footnote{Por si alguien tiene curiosidad, este ``simpático'' agradecimiento está tomado de la ``Tesis de Lydia Chalmers'' basada en el universo del programa de televisión Buffy, la Cazadora de Vampiros.http://www.buffy-cazavampiros.com/Spiketesis/tesis.inicio.htm}
+\chapter*{Agradecimientos
 }
 
 \thispagestyle{empty}
 \vspace{1cm}
 
-Este trabajo no habría sido posible sin el apoyo y el estímulo de mi colega y amigo, Doctor Rudolf Fliesning,  bajo cuya supervisión escogí este tema y comencé la tesis. Sr. Quentin Travers, mi consejero en las etapas finales del trabajo, también ha sido generosamente servicial, y me ha ayudado de numerosos modos, incluyendo el resumen del contenido de los documentos que no estaban disponibles para mi examen, y en particular por permitirme leer, en cuanto estuvieron  disponibles, las copias de los  recientes extractos de los diarios de campaña del Vigilante Rupert Giles y la actual Cazadora la señorita Buffy Summers, que se encontraron con William the Bloody en 1998, y por facilitarme el pleno acceso  a los diarios de anteriores Vigilantes relevantes a la carrera de William the Bloody.
+Este trabajo no habría sido posible sin el apoyo de mis tutores como de Nahuel, su paciencia y disposición hacia mis dudas han sido clave durante este proyecto.
 
-También me gustaría agradecerle al Consejo la concesión de Wyndham-Pryce como Compañero, el cual me ha apoyado durante mis dos años de investigación, y la concesión de dos subvenciones de viajes, una para estudiar documentos en los Archivos de Vigilantes sellados en Munich, y otra para la investigación en campaña en Praga. Me gustaría agradecer a Sr. Travers, otra vez, por facilitarme  la acreditación  de seguridad para el trabajo en los Archivos de Munich, y al Doctor Fliesning por su apoyo colegial y ayuda en ambos viajes de investigación.
+También quiero agradecer a mis amigos, que por muy lejos que estén han estado cerca de mí apoyándome y animándome para terminar mis estudios en los momentos más complejos.
 
-No puedo terminar sin agradecer a mi familia, en cuyo estímulo constante y amor he confiado a lo largo de mis años en la Academia. Estoy agradecida también a los ejemplos de mis  difuntos hermano, Desmond Chalmers, Vigilante en Entrenamiento, y padre, Albert Chalmers, Vigilante. Su coraje resuelto y convicción siempre me inspirarán, y espero seguir, a mi propio y pequeño modo, la noble misión por la que dieron sus vidas. 
+Agradecer a mi familia, que siempre han tratado de darme soluciones a mis problemas.
+
+No puedo terminar estos agradecimientos sin mencionar a mis compañeros de la Universidad de Alicante; Luis, Sandra, Edgar, Dani y el resto de personas que han estado a mi lado, gracias por los años que he estado a vuestro lado y por toda la ayuda y apoyo que nos hemos brindado, estoy muy agradecida de haberos tenido a mi lado durante mis años de carrera.
 
 Es a ellos a quien dedico este trabajo.
+
 
 \cleardoublepage %salta a nueva página impar
 % Aquí va la dedicatoria si la hubiese. Si no, comentar la(s) linea(s) siguientes
@@ -42,28 +45,26 @@ Es a ellos a quien dedico este trabajo.
 \addtolength{\topsep}{0.5cm}
 \begin{flushright}
 \small\em{
-A mi esposa Marganit, y a mis hijos Ella Rose y Daniel Adams,\\
-sin los cuales habría podido acabar este libro dos años antes \footnote{Dedicatoria de Joseph J. Roman en "An Introduction to Algebraic Topology"}
+A mi abuela Carmen, que no ha podido verme terminar esta etapa.\\
 }
 \end{flushright}
-
 
 \cleardoublepage %salta a nueva página impar
 % Aquí va la cita célebre si la hubiese. Si no, comentar la(s) linea(s) siguientes
-\chapter*{}
-\setlength{\leftmargin}{0.5\textwidth}
-\setlength{\parsep}{0cm}
-\addtolength{\topsep}{0.5cm}
-\begin{flushright}
-\small\em{
-Si consigo ver más lejos\\
-es porque he conseguido auparme\\ 
-a hombros de gigantes
-}
-\end{flushright}
-\begin{flushright}
-\small{
-Isaac Newton.
-}
-\end{flushright}
-\cleardoublepage %salta a nueva página impar
+%\chapter*{}
+%\setlength{\leftmargin}{0.5\textwidth}
+%\setlength{\parsep}{0cm}
+%\addtolength{\topsep}{0.5cm}
+%\begin{flushright}
+%\small\em{
+%Si consigo ver más lejos\\
+%es porque he conseguido auparme\\ 
+%a hombros de gigantes
+%}
+%\end{flushright}
+%\begin{flushright}
+%\small{
+%Isaac Newton.
+%}
+%\end{flushright}
+%\cleardoublepage %salta a nueva página impar

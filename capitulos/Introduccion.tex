@@ -8,36 +8,78 @@
 \chapter{Introducción}
 
 \section{Motivación y contexto}
+\bibliographystyle{apacite}
+
+	Mi interés por la visión artificial se desarrolló durante el tercer año de carrera, donde me presenté junto a la Universidad de Alicante a un proyecto llamado Vodafone Campus Lab[\cite{Vodafone}], donde te proponen unos problemas a resolver y nosotros decidimos plantear una solución con tecnologías como la visión artificial, además esta propuesta requería de procesos como la adquisición del cuerpo 3D y reconocimiento de este, entre otros. Aquí fue cuando busqué propuestas de trabajo de fin de grado (TFG) similares o sobre este tema, porque me quedé con la curiosidad de llevarlo a cabo y porque quería saber, aprender e investigar más sobre la adquisición del objetos 3D a partir de imágenes, cuando vi las propuestas fue cuando conocí el proyecto de investigación [\cite{tech}].
+ 
+	El proyecto de investigación Tech4Diet cuenta con el apoyo de la Agencia Estatal de Investigación (AEI) y del Fondo Europeo de Desarrollo Regional (FEDER) con referencia "TIN2017-89069-R" perteneciente al programa Retos 2017 en el que su investigador jefe es Jorge Azorín. En este proyecto se busca facilitar el estudio de la evolución morfológica ocasionada por tratamientos de obesidad. Hoy en día, estos tratamientos son muy costosos pero a su vez muy necesarios, ya que los problemas de obesidad o sobrepeso pueden ocasionar enfermedades crónicas como la hipertensión, diabetes tipo II, cáncer. También pueden ocasionar enfermedades patológicas neurodegenerativas como el Alzheimer o demencias [\cite{Andres1}]
 
 
-
-\\
-	Mi interés por la visión artificial se desarrolló durante el tercer año de carrera, donde me presenté junto a la Universidad de Alicante a un proyecto llamado Vodafone Campus Lab[cita??], donde te proponen unos problemas a resolver y nosotros decidimos plantear una solución con tecnologías como la visión artificial, además esta propuesta requería de procesos como la adquisición del cuerpo 3D, reconocimiento de este, entre otras. Aquí fue cuando busqué propuestas de trabajo similares o sobre este tema, porque me quedé con la curiosidad de llevarlo a cabo y porque quería saber y aprender más sobre este tema, y conocí el proyecto de investigación Tech4Diet [cita]
-\\
-\\
-	El proyecto de investigación Tech4Diet cuenta con el apoyo de la Agencia Estatal de Investigación (AEI) y del Fondo Europeo de Desarrollo Regional (FEDER) con referencia "TIN2017-89069-R" perteneciente al programa Retos 2017 en el que su investigador jefe es Jorge Azorín. En este proyecto se busca facilitar el estudio de la evolución morfológica ocasionada por tratamientos de obesidad. Hoy en día, estos tratamientos son muy costosos pero a su vez muy necesarios, ya que los problemas de obesidad o sobrepeso pueden ocasionar enfermedades crónicas como la hipertensión, diabetes tipo II, cáncer. También pueden ocasionar enfermedades patológicas neurodegenerativas como el Alzheimer o demencias [Fuster-Guilló et al., 2020]
-\\
-\\
 	El sistema utilizado para esta finalidad, dispone de una red de cámaras RGB-D que
-	obtienen un modelo 3D del cuerpo del paciente. El proceso de obtención de un modelo 3D se realiza en diferentes sesiones médicas, lo que permite una visualización real de la
-	evolución del cuerpo del paciente. Para que el paciente pueda visualizar su progreso, no solo dispondrá de una aplicación de ordenador, sino que también podrá visualizar los
-	diferentes modelos de su cuerpo mediante unas gafas de realidad virtual. La realidad virtual tiene como finalidad incrementar la adherencia del usuario al tratamiento. Además, podemos encontrar desarrollos tecnológicos como "Google Cardboard" que nos permiten convertir cualquier teléfono móvil en unas gafas de realidad virtual sin necesidad de realizar un gasto de dinero elevado. A parte de la visualización, sobre este modelo 3D obtenido con las cámaras se pueden realizar mediciones de diferentes partes del cuerpo a niveles de 1D, 2D y 3D.
-\\
+	obtienen un modelo 3D del cuerpo del paciente. El proceso de obtención de un modelo 3D se realiza en diferentes sesiones médicas, lo que permite una visualización real de la evolución del cuerpo del paciente. Para que el paciente pueda visualizar su progreso, no solo dispondrá de una aplicación de ordenador, sino que también podrá visualizar los diferentes modelos de su cuerpo mediante unas gafas de realidad virtual. La realidad virtual tiene como finalidad incrementar la adherencia del usuario al tratamiento. Además, podemos encontrar desarrollos tecnológicos como "Google Cardboard" que nos permiten convertir cualquier teléfono móvil en unas gafas de realidad virtual sin necesidad de realizar un gasto de dinero elevado.
+	A parte de la visualización, sobre este modelo 3D obtenido con las cámaras se pueden realizar mediciones de diferentes partes del cuerpo a niveles de 1D, 2D y 3D. 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.7]{imagenes/intro1.png}
+		\caption{Captación del modelo del cuerpo mediante el sistema de cámaras (a). Nubes de puntos sin textura generada (b). Mediciones del cuerpo (c). Visualización de los resultados en la aplicación y con gafas de realidad virtual [\cite{Nahuel1}]}
+		\label{fig:figura1}
+	\end{figure}
 
-Para que todo esto sea efectivo las mediciones han de corresponderse a las reales, por lo tanto el objetivo principal de este trabajo es comprobar y calcular si se pueden obtener buenas mediciones a partir de un modelo 3D generado con una sola imagen del cuerpo de la persona que será procesado en una red utilizando así el proyecto PIFu[cita] para ello.
+	Este trabajo cuenta como objetivo principal la reconstrucción del cuerpo a partir de imágenes dado que esto permite que los proyectos mencionados anteriormente se puedan exportar de una manera más económica, por lo tanto para que todo esto sea efectivo las mediciones han de corresponderse a las reales, por lo que el siguiente objetivo será comprobar, calcular y comparar los resultados obtenidos mediante el uso de diferentes cámaras RGB-D con nuestros resultados generados a partir de un modelo 3D generado con una sola imagen del cuerpo de la persona que será procesado en una red que alinea los píxeles de las imágenes con su correspondiente contexto global del modelo 3D [\cite{pifu}].
 
+\newpage
 
 
 \section{Estado del arte}
-
-
-
 %\begin{verbatim}
-%\bibliographystyle{apacite}
+La reconstrucción del cuerpo humano 3D es un tema amplio abordado de diferentes maneras, por una parte tenemos la visión por computador que nos permite entender la información visual del entorno capturada a través de las cámaras [\cite{Zhang1}], por otro lado tenemos la visión artificial, por este lado están apareciendo avances recientes en la estimación del cuerpo humano 3D basado en imágenes que han sido impulsados por la mejora significativa en el poder de representación que ofrecen las redes neuronales profundas. [\cite{pifuhd}]
+
+Se ha llevado a cabo una revisión del estado del arte que abordan las diferentes formas de obtener resultados respecto a la reconstrucción del cuerpo humano.
+\\
+
+Por un lado, recientes trabajos abordados mediante el uso de la visión por computador utilizan cámaras RGB-D calibradas [\cite{Nahuel1}]. El trabajo abordado por García D'Urso propone el uso de dispositivos RGB-D (como Microsoft Kinect o Intel RealSense), debido a que integran sensores de color y profundidad, y utilizan tecnologías de profundidad como luz estructurada, ToF (Time of Flight, sensor que mide distancias utilizando el tiempo que usan los fotones en viajar entre dos puntos) o activa estereoscópica. En este proyecto aparte de la obtención del modelo, también han tratado otros puntos como la visualización 3D del cuerpo utilizando la realidad virtual, además de que pueden obtener las medidas de volúmenes seleccionados del cuerpo humano. Con esta propuesta lo que llevan a cabo es una red de cámaras RGB-D de 13 cámaras ubicadas en una cabina donde la persona se ha de colocar durante 4 segundos como se puede ver en la figura 1.2, esta red de cámaras se ha de calibrar de manera que cada una de ellas quede calibrada intrínsicamente y extrínsecamente para cada cámara y multi-cámara para así estimar la posición relativa de cada sensor en la red, una vez la red de cámaras se encuentren calibradas sigue el proceso de la obtención del modelo 3D con textura que consta de 5 fases principales, que se ven en la figura 1.1: adquisición, pre-procesado, unión de vistas, generación de la malla y proyección de la textura.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.35]{imagenes/estadoarte1.png}
+	\caption{Set-up de red de 13 cámaras RGB-D. "nv" indica que la cámara no está visible en la imagen [\cite{Nahuel1}].}
+	\label{fig:figura2}
+\end{figure}
+
+
+Por otro lado nos encontramos recientes trabajos abordados mediante el uso de visión artificial y deep learning, en estos a diferencia del anterior no se necesita una cabina formada por una red de cámaras. Todos estos trabajos tienen el mismo objetivo de producir resultados naturales y bien alineados [\cite{pymaf}], en concreto han habido dos paradigmas investigados principalmente, por un lado tenemos los métodos basados en la optimización que ajustan explícitamente los modelos a las imágenes 2D [\cite{keepsmpl}], y por otro lado los basados en modelos de regresión que sugieren directamente predecir los parámetros del modelo a partir de las imágenes [\cite{pymaf}].
+
+Bogo desarrolla un método para automáticamente estimar la pose y forma 3D del cuerpo humano a partir de una imagen, para ello siguen dos pasos, primero estiman los 2D joints (uniones, en este caso sería por ejemplo la rodilla que une la parte inferior y superior de la pierna), esto lo consiguen usando una red neuronal convolucional (CNN) llamado DeepCut [\cite{deepcut}], esta red es buena estimando la pose 2D pero no bueno con la pose 3D por lo que el siguiente paso es el que estima la pose y la forma 3D partiendo de los 2D joints utilizando el modelo SMPL [\cite{smpl}] encanjando dentro de un paradigma clásico bottom up de estimación (CNN) seguida de una verificación descendente (modelo generativo) como se puede ver en la figura 1.3
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{imagenes/estadoarte2.png}
+	\caption{Ejemplos. forma y pose 3D estimada mediante el método desarrollado por Bogo[\cite{keepsmpl}] usando las fotos de Leeds Sports Pose Dataset[\cite{edafig2}]. Se ve la imagen original a la izquierda, luego el modelo comparado en la foto en el centro y por último a la derecha el modelo 3D desde otro punto de vista. }
+	\label{fig:figura3}
+\end{figure}
+Los métodos basados en la optimización como el de Bogo ajustan explícitamente los modelos a las imágenes, lo que produce resultados con buena precisión de los alineamientos entre malla-imagen, pero tienden a ser lentos y sensibles al inicio[\cite{pymaf}]. 
+\\
+Por otro lado nos encontramos los modelos basados en regresión como la propuesta de H. Zhang, estos modelos se basan en los parámetros existentes en las imágenes, estos modelos están demostrando resultados prometedores pero aún nos encontramos errores principalmente de alineamientos entre malla e imagen. La propuesta de H. Zhang es principalmente para tratar de resolver este problema, propone y diseña PyMAF (Pyramidal Mesh Alignment Feedback). La idea central de este enfoque es corregir las desviaciones paramétricas de manera explícita y progresiva basado en el estado del alineamiento, en PyMAF el alineamiento se realiza extrayendo las características espaciales respecto a la proyección 2D de la malla estimada y luego retroalimenta los regresores para que actualicen los parámetros.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{imagenes/estadoarte3.png}
+	\caption{ Descripción general de la propuesta PyMAF. PyMAF aprovecha una Feature Pyramid y permite un circuito de retroalimentación de alineación en la red. Dada una predicción del modelo, los alineamientos de la malla son extraídos de características de una resolución más fina y retroalimentan el regresor para así actualizar la malla.  [\cite{pymaf}]   }
+	\label{fig:figura4}
+\end{figure}
+
+
+
+Con esta investigación del estado del arte podemos observar que hay diferentes maneras de realizar la reconstrucción del cuerpo humano, dentro de cada manera hay varios trabajos parecidos dado que unos se retroalimentan de otros. 
+
+Los trabajos realizados mediante visión artificial y redes neuronales están más enfocados en general a las poses de las personas, dado que comenzó inicialmente en ello, pero lo que nosotros queremos y buscamos es que sean capaces de reconstruir de forma fiel el cuerpo dado que se busca usar esto en un ámbito dietético-nutricional de la obesidad, por lo que es muy importante que las medidas sean correctas.
+
 %\end{verbatim}
-
-
 %\item[Anexos:] se podrán incluir los anexos que se consideren oportunos.
+
+
+
+
+\clearpage
+
 
 
 
@@ -65,13 +107,12 @@ Para llegar al objetivo general es necesario disponer de una buena obtención de
 		
 		
 	\end{itemize}
-	\item{\textbf{Objetivo 2: Comparativa del modelo 3D obtenido con el modelo obtenido por el proyecto Tech4Diet. 
-			.}} \\
+	\item{\textbf{Objetivo 2: Comparativa del modelo 3D obtenido con el modelo obtenido por el proyecto Tech4Diet. }} \\
 	Para este objetivo se tendrán que realizar las siguientes tareas específicas:
 	\begin{itemize}
 		\item Estudio sobre las diferentes formas de realizar el cálculo de las diferencias obtenidas.
-		\item Calculo de distancias usando Hausdorff Distance
-		\item Calculo de distancias usando Chamfer distance
+		\item Cálculo de distancias usando Hausdorff Distance
+		\item Cálculo de distancias usando Chamfer distance
 	\end{itemize}
 \end{itemize}
 
