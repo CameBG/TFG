@@ -33,12 +33,12 @@
 
 \section{Estado del arte}
 %\begin{verbatim}
-La reconstrucción del cuerpo humano 3D es un tema amplio abordado de diferentes maneras, por una parte tenemos la visión por computador que nos permite entender la información visual del entorno capturada a través de las cámaras [\cite{Zhang1}], por otro lado tenemos la visión artificial, por este lado están apareciendo avances recientes en la estimación del cuerpo humano 3D basado en imágenes que han sido impulsados por la mejora significativa en el poder de representación que ofrecen las redes neuronales profundas. [\cite{pifuhd}]
+La reconstrucción del cuerpo humano 3D es un tema amplio abordado de diferentes maneras, por una parte tenemos la visión por computador que nos permite entender la información visual del entorno capturada a través de las cámaras [\cite{Zhang1}], por otro lado nos encontramos avances recientes en la estimación del cuerpo humano 3D basado en imágenes que han sido impulsados por la mejora significativa en el poder de representación que ofrecen las redes neuronales profundas. [\cite{pifuhd}]
 
 Se ha llevado a cabo una revisión del estado del arte que abordan las diferentes formas de obtener resultados respecto a la reconstrucción del cuerpo humano.
 \\
 
-Por un lado, recientes trabajos abordados mediante el uso de la visión por computador utilizan cámaras RGB-D calibradas [\cite{Nahuel1}]. El trabajo abordado por García D'Urso propone el uso de dispositivos RGB-D (como Microsoft Kinect o Intel RealSense), debido a que integran sensores de color y profundidad, y utilizan tecnologías de profundidad como luz estructurada, ToF (Time of Flight, sensor que mide distancias utilizando el tiempo que usan los fotones en viajar entre dos puntos) o activa estereoscópica. En este proyecto aparte de la obtención del modelo, también han tratado otros puntos como la visualización 3D del cuerpo utilizando la realidad virtual, además de que pueden obtener las medidas de volúmenes seleccionados del cuerpo humano. Con esta propuesta lo que llevan a cabo es una red de cámaras RGB-D de 13 cámaras ubicadas en una cabina donde la persona se ha de colocar durante 4 segundos como se puede ver en la figura 1.2, esta red de cámaras se ha de calibrar de manera que cada una de ellas quede calibrada intrínsicamente y extrínsecamente para cada cámara y multi-cámara para así estimar la posición relativa de cada sensor en la red, una vez la red de cámaras se encuentren calibradas sigue el proceso de la obtención del modelo 3D con textura que consta de 5 fases principales, que se ven en la figura 1.1: adquisición, pre-procesado, unión de vistas, generación de la malla y proyección de la textura.
+Por un lado, recientes trabajos abordados mediante el uso de la visión por computador utilizan cámaras RGB-D calibradas [\cite{Nahuel1}]. El trabajo abordado por García D'Urso propone el uso de dispositivos RGB-D (como Microsoft Kinect o Intel RealSense), debido a que integran sensores de color y profundidad, y utilizan tecnologías de profundidad como luz estructurada, ToF (Time of Flight, sensor que mide distancias utilizando el tiempo que usan los fotones en viajar entre dos puntos) o activa estereoscópica. En este proyecto aparte de la obtención del modelo, también han tratado otros puntos como la visualización 3D del cuerpo utilizando la realidad virtual, además de que pueden obtener las medidas de volúmenes seleccionados del cuerpo humano. Con esta propuesta lo que llevan a cabo es una red de cámaras RGB-D de 13 cámaras ubicadas en una cabina donde la persona se ha de colocar durante 4 segundos como se puede ver en la figura \ref{fig:figura2}, esta red de cámaras se ha de calibrar de manera que cada una de ellas quede calibrada intrínsicamente y extrínsecamente para cada cámara y multi-cámara para así estimar la posición relativa de cada sensor en la red, una vez la red de cámaras se encuentren calibradas sigue el proceso de la obtención del modelo 3D con textura que consta de 5 fases principales, que se ven en la figura \ref{fig:figura1}: adquisición, pre-procesado, unión de vistas, generación de la malla y proyección de la textura.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.35]{imagenes/estadoarte1.png}
@@ -47,36 +47,57 @@ Por un lado, recientes trabajos abordados mediante el uso de la visión por comp
 \end{figure}
 
 
-Por otro lado nos encontramos recientes trabajos abordados mediante el uso de visión artificial y deep learning, en estos a diferencia del anterior no se necesita una cabina formada por una red de cámaras. Todos estos trabajos tienen el mismo objetivo de producir resultados naturales y bien alineados [\cite{pymaf}], en concreto han habido dos paradigmas investigados principalmente, por un lado tenemos los métodos basados en la optimización que ajustan explícitamente los modelos a las imágenes 2D [\cite{keepsmpl}], y por otro lado los basados en modelos de regresión que sugieren directamente predecir los parámetros del modelo a partir de las imágenes [\cite{pymaf}].
-
-Bogo desarrolla un método para automáticamente estimar la pose y forma 3D del cuerpo humano a partir de una imagen, para ello siguen dos pasos, primero estiman los 2D joints (uniones, en este caso sería por ejemplo la rodilla que une la parte inferior y superior de la pierna), esto lo consiguen usando una red neuronal convolucional (CNN) llamado DeepCut [\cite{deepcut}], esta red es buena estimando la pose 2D pero no bueno con la pose 3D por lo que el siguiente paso es el que estima la pose y la forma 3D partiendo de los 2D joints utilizando el modelo SMPL [\cite{smpl}] encanjando dentro de un paradigma clásico bottom up de estimación (CNN) seguida de una verificación descendente (modelo generativo) como se puede ver en la figura 1.3
-\begin{figure}[H]
+Por otro lado nos encontramos recientes trabajos abordados mediante el uso de visión artificial y deep learning, en estos a diferencia del anterior no se necesita una cabina formada por una red de cámaras. Todos estos trabajos tienen el mismo objetivo de producir resultados naturales y bien alineados [\cite{pymaf}], en concreto han habido varios paradigmas investigados, por un lado tenemos los métodos basados en la optimización que ajustan explícitamente los modelos a las imágenes 2D [\cite{keepsmpl}], dentro de este paradigma nos encontramos con el trabajo de investigación por parte de Bogo que desarrolla un método para automáticamente estimar la pose y forma 3D del cuerpo humano a partir de una imagen, para ello siguen dos pasos, primero estiman los 2D joints (uniones, en este caso sería por ejemplo la rodilla que une la parte inferior y superior de la pierna), esto lo consiguen usando una red neuronal convolucional (CNN) llamado DeepCut [\cite{deepcut}], esta red es buena estimando la pose 2D pero no bueno con la pose 3D por lo que el siguiente paso es el que estima la pose y la forma 3D partiendo de los 2D joints utilizando el modelo SMPL [\cite{smpl}] encanjando dentro de un paradigma clásico bottom up de estimación (CNN) seguida de una verificación descendente (modelo generativo) como se puede ver en la figura \ref{fig:figura3}
+\begin{figure}[!h]
 	\centering
 	\includegraphics[scale=0.7]{imagenes/estadoarte2.png}
 	\caption{Ejemplos. forma y pose 3D estimada mediante el método desarrollado por Bogo[\cite{keepsmpl}] usando las fotos de Leeds Sports Pose Dataset[\cite{edafig2}]. Se ve la imagen original a la izquierda, luego el modelo comparado en la foto en el centro y por último a la derecha el modelo 3D desde otro punto de vista. }
 	\label{fig:figura3}
 \end{figure}
-Los métodos basados en la optimización como el de Bogo ajustan explícitamente los modelos a las imágenes, lo que produce resultados con buena precisión de los alineamientos entre malla-imagen, pero tienden a ser lentos y sensibles al inicio[\cite{pymaf}]. 
 \\
-Por otro lado nos encontramos los modelos basados en regresión como la propuesta de H. Zhang, estos modelos se basan en los parámetros existentes en las imágenes, estos modelos están demostrando resultados prometedores pero aún nos encontramos errores principalmente de alineamientos entre malla e imagen. La propuesta de H. Zhang es principalmente para tratar de resolver este problema, propone y diseña PyMAF (Pyramidal Mesh Alignment Feedback). La idea central de este enfoque es corregir las desviaciones paramétricas de manera explícita y progresiva basado en el estado del alineamiento, en PyMAF el alineamiento se realiza extrayendo las características espaciales respecto a la proyección 2D de la malla estimada y luego retroalimenta los regresores para que actualicen los parámetros.
+Los métodos basados en la optimización como el de Bogo ajustan explícitamente los modelos a las imágenes, lo que produce resultados con buena precisión de los alineamientos entre malla-imagen, pero tienden a ser lentos y sensibles al inicio[\cite{pymaf}].
+
+Y, por otro lado nos encontramos con métodos basados en modelos de regresión que sugieren directamente predecir el modelo a partir de los parámetros de las imágenes [\cite{pymaf}], en este apartado nos encontramos propuestas similares a la de H. Zhang, estos modelos se basan en los parámetros existentes en las imágenes y están demostrando resultados prometedores pero aún existen errores principalmente de alineamientos entre malla e imagen, para resolver este problema H. Zhang  propone y diseña PyMAF (Pyramidal Mesh Alignment Feedback). 
+
+La idea central de este enfoque es corregir las desviaciones paramétricas de manera explícita y progresiva basado en el estado del alineamiento, en PyMAF el alineamiento se realiza extrayendo las características espaciales respecto a la proyección 2D de la malla estimada y luego retroalimenta los regresores para que actualicen los parámetros.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{imagenes/estadoarte3.png}
-	\caption{ Descripción general de la propuesta PyMAF. PyMAF aprovecha una Feature Pyramid y permite un circuito de retroalimentación de alineación en la red. Dada una predicción del modelo, los alineamientos de la malla son extraídos de características de una resolución más fina y retroalimentan el regresor para así actualizar la malla.  [\cite{pymaf}]   }
+	\caption{ Descripción general de la propuesta PyMAF. PyMAF aprovecha una Feature Pyramid. Dada una predicción del modelo, los alineamientos de la malla son extraídos de características de una resolución más fina y retroalimentan el regresor para así actualizar la malla.  [\cite{pymaf}]   }
 	\label{fig:figura4}
 \end{figure}
 
+Existen otro tipo de paradigma investigado que esta basado en la representación por vóxeles [\cite{Voxel}] (un vóxel representa un valor en una malla de tres dimensiones) en este nos encontramos con el proyecto conocido como BodyNet [\cite{bodynet}], Varol propone una red neuronal entrenable de extremo a extremo enfocada en la inferencia directa de la forma volumétrica del cuerpo a partir de una sola imagen. Esta red genera probabilidades en el campo de ocupación 3D de la malla de una persona, dado que se usa una sola vista hay existen pérdidas de información que tratan de solventar aproximando el espacio de vóxeles, aumentando la importancia de los vóxeles que se encuentran en la frontera del cuerpo de la persona y el resto de imagen.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{imagenes/estadoarte4.png}
+	\caption{ Arquitectura general de la propuesta BodyNet[\cite{bodynet}]. Donde comienza a partir de una imagen RGB que se le pasa a dos subredes donde estiman tanto la pose como la segmentación 2D, con estas predicciones y la imagen se utilizan como  entrada para la siguiente red, que estima en este caso la pose 3D, con todo lo anterior se utiliza como entrada en la siguiente red donde obtiene ya la forma del cuerpo, donde ya por último se ajusta con el modelo SMPL[\cite{smpl}]}
+	\label{fig:figura5}
+\end{figure}
+
+También hay proyectos como el que se explicará detalladamente en los siguientes puntos como PIFu[\cite{pifu}] que consta de una función que alinea localmente píxeles de imágenes 2D con el contexto global de su objeto 3D correspondiente, para ello se propuso el uso de una red neuronal profundo de extremo a extremo la cual es capaz de representar a humanos de manera que tanto el pelo como la ropa se ve detallada, que es uno de los puntos débiles de los proyectos mencionados con anterioridad, dado que estos [\cite{keepsmpl},\cite{pymaf}] realmente no representan la ropa ni el pelo, tan solo la pose y el cuerpo es una representación del cuerpo humano desnudo, a diferencia de el proyecto llevado a cabo po Fuster-Guilló [\cite{Andres1}, \cite{Nahuel1}], este proyecto si que es capaz de representar la ropa.
+
+Aparte de la reconstrucción del cuerpo 3D, existe otro punto esencial que es la obtención de la textura del modelo 3D, por este lado podemos observar que mientras realiza PIFu[\cite{pifu}] una estimación directa de los colores RGB mediante una función implícita, también existen más maneras de representar la textura como la parametrización de la superficie como por ejemplo [\cite{texture1}, \cite{densepose}] al igual que en el PIFu[\cite{pifu}] que aparte de la representación de la textura en un objeto 3D, representan dicho objeto 3D, Kanazawa propone 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{imagenes/estadoarte5.png}
+	\caption{Ciclo de obtención de textura[\cite{texture1}]}
+	\label{fig:figura6}
+\end{figure}
+
+Como podemos ver en la figura \ref{fig:figura6}, se predice el flujo de textura $F$ que es usado como  entrada a la vez que la propia imagen inicial $I$ para generar la imagen de la textura $I^{uv}$ esta imagen es a su vez utilizada para texturizar la malla obtenida en la reconstrucción del modelo 3D.
 
 
-Con esta investigación del estado del arte podemos observar que hay diferentes maneras de realizar la reconstrucción del cuerpo humano, dentro de cada manera hay varios trabajos parecidos dado que unos se retroalimentan de otros. 
+Güler en su propuesta reconstruye una malla del cuerpo humano, una vez la tiene segmenta esta malla en diferentes partes, de esta malla obtienen las coordenada que luego son utilizadas para renderizar un píxel de manera que se compara directamente la posición verdadera y luego mapean directamente una textura RGB que han utilizado de [\cite{Varol_2017}] a las coordenadas corporales UV estimadas.
+
+
+Con esta investigación del estado del arte podemos observar que hay diferentes maneras de realizar la reconstrucción del cuerpo humano, dentro de cada manera hay varios trabajos parecidos dado que unos se retroalimentan de otros, también hemos visto de que manera obtienen la textura este tipo de métodos donde a partir de una imagen reconstruyen un modelo 3D. 
 
 Los trabajos realizados mediante visión artificial y redes neuronales están más enfocados en general a las poses de las personas, dado que comenzó inicialmente en ello, pero lo que nosotros queremos y buscamos es que sean capaces de reconstruir de forma fiel el cuerpo dado que se busca usar esto en un ámbito dietético-nutricional de la obesidad, por lo que es muy importante que las medidas sean correctas.
 
 %\end{verbatim}
 %\item[Anexos:] se podrán incluir los anexos que se consideren oportunos.
-
-
-
 
 \clearpage
 
@@ -98,12 +119,12 @@ Para llegar al objetivo general es necesario disponer de una buena obtención de
 
 
 \begin{itemize}
-	\item{\textbf{Objetivo 1: Obtención del modelo 3D a partir de una imagen usando PIFu como red.}} 
+	\item{\textbf{Objetivo 1: Obtención del modelo 3D y textura a partir de una imagen.}} 
 	\\Para ello se realizarán tareas como:
 	\begin{itemize}
 		\item Estudio de los diferentes parámetros para el entrenamiento y prueba de la red.
 		\item Obtención de imagen del cuerpo y generación de máscara de la imagen.
-		\item Estudio de los resultados obtenidos.
+		\item Obtención y estudio de los resultados.
 		
 		
 	\end{itemize}
@@ -111,6 +132,7 @@ Para llegar al objetivo general es necesario disponer de una buena obtención de
 	Para este objetivo se tendrán que realizar las siguientes tareas específicas:
 	\begin{itemize}
 		\item Estudio sobre las diferentes formas de realizar el cálculo de las diferencias obtenidas.
+		\item Alineamiento de objetos 3D.
 		\item Cálculo de distancias usando Hausdorff Distance
 		\item Cálculo de distancias usando Chamfer distance
 	\end{itemize}
