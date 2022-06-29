@@ -1,4 +1,25 @@
 \chapter{Reconstrucción del modelo 3D y textura a partir de una imagen}
 \label{Reconstrucción}
+En este capítulo se va a detallar como se consiguió la reconstrucción de un modelo 3D a partir de una imagen utilizando el método PIFu. El proceso se puede dividir en varios puntos:
 
-eeee
+\begin{itemize}
+	\item Estudio de los parámetros de test
+	\item Generación de la máscara de una imagen
+	\item Obtención y estudio del resultado obtenido
+\end{itemize}
+
+\section{Estudio de los parámetros de test}
+
+Una vez el proyecto creado e instalado, se realizó un estudio del mismo para poder comenzar a realizar la experimentación de este, para ello se realizó un estudio sobre como iniciar la fase testing del método PIFu y qué se necesitaba para comenzar a obtener resultados. Con ello pude observar que se necesitaba a parte de la imagen la máscara de ella.
+
+\section{Generación de la máscara de una imagen}
+
+Como se ha comentado en el punto anterior, a parte de la imagen de una persona se necesita la máscara de esa, para ello se buscaron imágenes de prueba, estas imágenes fueron buscadas en Depositphotos[]. Una vez obtuvimos varias imágenes de personas en bañador comenzamos el proceso de la obtención de la máscara de estas imágenes. Dado que estas imágenes tenían un fondo blanco puro la extracción fue sencilla y se programó en python.
+
+Más tarde se hicieron quiso realizar pruebas con modelos 3D ya existentes generados por el proyecto Tech4Diet[\cite{tech}], para ello se utilizó la herramienta de MeshLab, de la cuál pues realizar capturas de pantallas quitando el fondo de la captura, es decir, solo mostrando el objeto 3D, por lo tanto seleccionamos esa opción, se modificó un poco el código anterior y obtuvimos dicha máscara.
+
+Por último se realizaron fotos sobre tres personas diferentes con un fondo verde, en esta parte ocurrieron unos pequeños problemas, por la situación no podíamos poner el chroma verde en otro mejor sitio así que lo pusimos delante de una ventana con una persiana y por donde pasaba la luz adquiría un color más azulado, esto hizo un poco más compleja la generación de la máscara pero se consiguió utilizando filtros con la ayuda de la librería OpenCV.
+
+(revisar con el código y explicarlo mejor, poner imágenes de prueba en cada una de ellas)
+
+\section{title}
