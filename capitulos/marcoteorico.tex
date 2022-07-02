@@ -104,11 +104,30 @@ Donde $ X_{i}^{'} = X_{i} + \epsilon$. Se usa un $d = 1.0$ cm para todos los exp
 
 \section{Cálculo de distancias}
 
-Dado que se ha desarrollado
+Dado que se necesita saber cuán capaz es de representar la realidad este método se necesita realizar una serie de comparaciones, para ello vamos a utilizar dos métodos diferentes.
 
 \subsection{Distancia Chamfer}
+Por un lado tenemos la distancia de Chamfer es una métrica de evaluación, en este caso la aplicaremos sobre dos nubes de puntos (la obtenida por nuestro método y la del proyecto de Tech4diet[\cite{tech}]). Tiene en cuenta la distancia de cada punto. Para cada punto en cada nube, esta distancia calcula el punto más cercano en el otro conjunto de puntos y suma el cuadrado de la distancia. [\cite{linyi_2022}]
+
+\begin{equation}
+	\label{eq:6}
+	CD(S_{1}, S_{2}) = 
+	\frac{1}{S_{1}} \sum_{x \in S_{1}}{} \min_{x \in S_1}|| x - y ||_{2}^{2} +
+	\frac{1}{S_{2}} \sum_{y \in S_{1}}{} \min_{x \in S_1}|| x - y ||_{2}^{2}
+\end{equation}
+
+Donde $S_{1}$ y $S_{2}$ son las dos nubes de puntos y $x$ e $y$ son sus correspondientes puntos.
 
 \subsection{Distancia Hausdorff}
+Por otro lado tenemos la distancia de Hausdorff que al igual que la de Chamfer es una métrica de evaluación, esta es la distancia más larga de un conjunto de puntos vecino en el otro conjunto [\cite{grégoire_bouillot_2022}].
+
+\begin{equation}
+	\label{eq:7}
+	h(S_{1}, S_{2}) = 
+	\max_{a \in S_{1}} [ \min_{b \in S_{2}} [d(a,b)]]
+\end{equation}
+
+Donde $a$ y $b$ son los puntos de los conjuntos $S_{1}$ y $S_{2}$ respectivamente y $d(a,b)$ es cualquier métrica entre esos dos puntos, esta puede ser la distancia euclídea o cualquier otra.
 
 
 \clearpage
