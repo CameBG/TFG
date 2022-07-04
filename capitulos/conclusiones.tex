@@ -5,128 +5,27 @@
 % Contacto: info@jmrplens.com / Telegram:@jmrplens
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Conclusiones (Con ejemplos de matemáticas)}
+\chapter{Conclusiones}
 \label{conclusiones}
+En este capítulo se resaltan las principales conclusiones obtenidas como consecuencia del trabajo desarrollado y a su vez líneas futuras derivadas al trabajo.
 
-\section{Matemáticas}
+\section{Conclusión}
 
-En \LaTeX~se pueden mostrar ecuaciones de varias formas, cada una de ellas para un fin concreto.
-\par Antes de ver algunas de estas formas hay que conocer cómo se escriben fórmulas matemáticas en \LaTeX. Una fuente de información completa es la siguiente: \url{https://en.wikibooks.org/wiki/LaTeX/Mathematics}. También existen herramientas online que permiten realizar ecuaciones mediante interfaz gráfica como \url{http://www.hostmath.com/}, \url{https://www.mathcha.io/editor} o \url{https://www.latex4technics.com/}
-\vspace{1em}
-\noindent\hrule
-\vspace{1em}
-Para mostrar una ecuación numerada se debe utilizar:
-\begin{lstlisting}[style=Latex-color,label=latex_code1]
-\begin{equation}
-	\nabla\times{\mathbf H}=\left[\frac{1}{r}\frac{\partial}{\partial r}(rH_\theta)-\frac{1}{r}\frac{\partial H_r}{\partial\theta}\right]{\hat{\mathbf z}}
-	\label{ecuacion}
-\end{equation}
-\end{lstlisting}
-\begin{equation}
-  \nabla\times{\mathbf H}=\left[\frac{1}{r}\frac{\partial}{\partial
-        r}(rH_\theta)-\frac{1}{r}\frac{\partial
-        H_r}{\partial\theta}\right]{\hat{\mathbf z}}
-        \label{ecuacion}
-\end{equation}
-\vspace{1em}
-\noindent\hrule
-\vspace{1em}
-Si es necesario agrupar varias ecuaciones en un mismo índice se puede escribir del siguiente modo:
+En el presente trabajo se han planteado una serie de objetivos relacionados con la necesidad de poder ser capaces de generar un modelo del cuerpo humano lo más real posible con el uso de una cámara de teléfono móvil y con una sola vista. 
 
-\begin{lstlisting}[style=Latex-color,label=latex_code2]
-\begin{subequations}
-	\begin{eqnarray}
-    	{\mathbf E}&=&E_z(r,\theta)\hat{\mathbf z}\label{ecu1} \\ % Salto de línea
-    	{\mathbf H}&=&H_r(r,\theta))\hat{ \mathbf r}+H_\theta(r,\theta)\hat{\bm \theta}\label{ecu2}
-	\end{eqnarray}
-\end{subequations}
-% Se incluye '&' entre la igualdad para centrar las ecuaciones desde el '='.
-\end{lstlisting}
+Se ha seleccionado el uso de una cámara de teléfono móvil porque actualmente toda persona adulta tiene uno, y por lo tanto es un sistema muy flexible y por supuesto portable.
 
-\begin{subequations}
-  \begin{eqnarray}
-    {\mathbf E}&=&E_z(r,\theta)\hat{\mathbf z}\label{ecu1} \\
-    {\mathbf H}&=&H_r(r,\theta))\hat{ \mathbf r}+H_\theta(r,\theta)\hat{\bm
-      \theta}\label{ecu2}
-  \end{eqnarray}
-\end{subequations}
-\vspace{1em}
-\noindent\hrule
-\vspace{1em}
-Otras dos formas que son las habituales en muchos lugares para incluir ecuaciones son:
-\begin{lstlisting}[style=Latex-color,label=latex_code]
+En relación al estudio de la red profunda que se ha usado, hemos podido comprobar que ha sido alimentada y entrenada por modelos que tienen un físico más normativo, dado que cada vez que se ha probado con un cuerpo menos normativo más errores nos hemos encontrado en el proceso, como por ejemplo una "pérdida" de peso considerable en comparación cuando observabas los modelos en ángulos más ladeados.
 
-Ejemplo de fórmula en línea con el texto $\int_{a}^{b} f(x)dx = F(b) - F(a)$, esta ecuación quedará dentro del texto.
+En relación al estudio de los resultados obtenidos se concluye con que hay ciertos ángulos que favorecen a la red, hemos podido comprobar que el ángulo donde se ve la espalda nos ha proporcionado modelos con menos problemas, pero que este estudio es mejorable. Se ha repetido mucho que la vista se ve perfecta desde el ángulo de la imagen pero cuando empiezas a mirar el resto de ángulos se ven muchos desperfectos y deformidades.
 
-Esta otra, al utilizar dos '\$', se generará en una línea nueva $$\int_{a}^{b} f(x)dx = F(b) - F(a)$$
-	
-\end{lstlisting}
 
-Ejemplo de fórmula en línea con el texto $\int_{a}^{b} f(x)dx = F(b) - F(a)$, esta ecuación quedará dentro del texto.
+\section{Líneas Futuras}
 
-Esta otra, al utilizar dos '\$', se generará en una línea nueva $$\int_{a}^{b} f(x)dx = F(b) - F(a)$$
-\vspace{1em}
-\noindent\hrule
-\vspace{1em}
-También se puede añadir información adicional a una ecuación con la función \textit{condiciones} creada para esta plantilla:
+Como consecuencia del trabajo desarrollado se han derivado una serie de líneas futuras entre las que podemos destacar:
 
-\begin{lstlisting}[style=Latex-color]
-\begin{equation}
-	\underset{z=z_0}{\mathrm{Res}}(f(z))=\frac{1}{(m-1)!}\lim_{z \rightarrow z_0}\left[\frac{\text{d}^{m-1}}{\text{d}z^{m-1}} \left[\left(z-z_0\right)^m f(z) \right] \right]
-\end{equation}
+Ampliación del uso de la red a multivista, es decir pasar de una vista a varias, ya que como se ha comentado en las conclusiones, se puede observar que usualmente el ángulo utilizado como imagen, se observa que lo representa bien, el problema ocurre una vez se observa desde más ángulos, esto se soluciona con diferentes vistas a la vez, y esta red se puede exportar a ello.
 
-\begin{condiciones}[donde:]
-% Excepto 'Descripción y valor' el resto no es necesario el símbolo $ para texto matemático.
-% Item	&	Relación	& Descripción o valor 	
-	m 	&	\rightarrow 	& Es la multiplicidad del polo $z_0$	\\
-	z_0 &	\rightarrow 	& Es la parte que se iguala a 0 con el polo. \\
-	f(z)&	\rightarrow 	& Es la función contenida en la integral.
-\end{condiciones}
-\end{lstlisting}
+Entrenamiento con diferentes modelos sobre diferentes tipos de cuerpos humanos para obtener mejores resultados, y prepararlo para multivista.
 
-\begin{equation}
-	\underset{z=z_0}{\mathrm{Res}}(f(z))=\frac{1}{(m-1)!}\lim_{z \rightarrow z_0}\left[\frac{\text{d}^{m-1}}{\text{d}z^{m-1}} \left[\left(z-z_0\right)^m f(z) \right] \right]
-	\label{ecucon}
-\end{equation}
-
-\begin{condiciones}[donde:]
-% Excepto 'Descripción y valor' el resto no es necesario el símbolo $ para texto matemático.
-% Item	&	Relación	& Descripción o valor 	
-	m 	&	\rightarrow 	& Es la multiplicidad del polo $z_0$	\\
-	z_0 &	\rightarrow 	& Es la parte que se iguala a 0 con el polo. \\
-	f(z)&	\rightarrow 	& Es la función contenida en la integral.
-\end{condiciones}
-
-\vspace{1em}
-\noindent\hrule
-\vspace{1em}
-Si lo que deseas es una ecuación alineada a la izquierda o derecha puedes hacerlo con lo siguiente (el '\&' simple es utilizado para alinear las ecuaciones desde ese punto, los iguales):
-
-\begin{lstlisting}[style=Latex-color]
-% Alineado a la izquierda al incluir al final el doble '&&'
-\begin{flalign}
-	y_{h_1}=&\begin{bmatrix}6\cos(\sqrt{6} x) \\ -\sqrt{6}\sin(\sqrt{6}x)\end{bmatrix}e^x &&\\
-	y_{h_2}=&\begin{bmatrix}6\sin(\sqrt{6} x) \\ \sqrt{6}cos(\sqrt{6}x)\end{bmatrix}e^x &&
-\end{flalign}
-
-% Alineado a la derecha al incluir al inicio el doble '&&'
-\begin{flalign}
-&&	y_{h_1}=&\begin{bmatrix}6\cos(\sqrt{6} x) \\ -\sqrt{6}\sin(\sqrt{6}x)\end{bmatrix}e^x\\
-&&	y_{h_2}=&\begin{bmatrix}6\sin(\sqrt{6} x) \\ \sqrt{6}cos(\sqrt{6}x)\end{bmatrix}e^x 
-\end{flalign}
-\end{lstlisting}
-
-% Alineado a la izquierda al incluir al final el doble '&&'
-\begin{flalign}
-	y_{h_1}=&\begin{bmatrix}6\cos(\sqrt{6} x) \\ -\sqrt{6}\sin(\sqrt{6}x)\end{bmatrix}e^x &&\\
-	y_{h_2}=&\begin{bmatrix}6\sin(\sqrt{6} x) \\ \sqrt{6}cos(\sqrt{6}x)\end{bmatrix}e^x &&
-	\label{ecuacion2}
-\end{flalign}
-
-% Alineado a la derecha al incluir al inicio el doble '&&'
-\begin{flalign}
-&&	y_{h_1}=&\begin{bmatrix}6\cos(\sqrt{6} x) \\ -\sqrt{6}\sin(\sqrt{6}x)\end{bmatrix}e^x\\
-&&	y_{h_2}=&\begin{bmatrix}6\sin(\sqrt{6} x) \\ \sqrt{6}cos(\sqrt{6}x)\end{bmatrix}e^x 
-\end{flalign}
-\\[1cm]
-Tanto con la función utilizada en (\ref{ecuacion},\ref{ecucon}), como en (\ref{ecu1},\ref{ecu2}) y en las anteriores, si se les incluye un '*' después de 'equation', 'subequation' o 'flalign', se elimina la numeración de las ecuaciones pero manteniendo el resto de características.
+Comparación de los resultados obtenidos con multivista y una vista.
