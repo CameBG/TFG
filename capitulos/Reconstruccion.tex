@@ -10,16 +10,89 @@ En este capítulo se va a detallar como se consiguió la reconstrucción de un m
 
 \section{Estudio de los parámetros de test}
 
-Una vez el proyecto creado e instalado, se realizó un estudio del mismo para poder comenzar a realizar la experimentación de este, para ello se realizó un estudio sobre como iniciar la fase testing del método PIFu y qué se necesitaba para comenzar a obtener resultados. Con ello pude observar que se necesitaba a parte de la imagen la máscara de ella.
+Una vez el proyecto creado e instalado, se realizó un estudio del mismo para poder comenzar a realizar la experimentación de este, para ello se realizó un estudio sobre como iniciar la fase testing del método PIFu y qué se necesitaba para comenzar a obtener resultados. Con ello pude observar que se necesitaba a parte de la imagen la máscara de ella, además estas imágenes han de tener unos tamaños concretos, unos de los aceptados por la red son 512x512 y 1024x1024.
 
 \section{Generación de la máscara de una imagen}
 
-Como se ha comentado en el punto anterior, a parte de la imagen de una persona se necesita la máscara de esa, para ello se buscaron imágenes de prueba, estas imágenes fueron buscadas en Depositphotos[]. Una vez obtuvimos varias imágenes de personas en bañador comenzamos el proceso de la obtención de la máscara de estas imágenes. Dado que estas imágenes tenían un fondo blanco puro la extracción fue sencilla y se programó en python.
+Dado que se necesita aparte de la imagen de la persona, la máscara de esta se tuvo que realizar un método que fuese capaz de este proceso, utilizando como base la imagen que se le pasa a la red.
 
-Más tarde se hicieron quiso realizar pruebas con modelos 3D ya existentes generados por el proyecto Tech4Diet[\cite{tech}], para ello se utilizó la herramienta de MeshLab, de la cuál pues realizar capturas de pantallas quitando el fondo de la captura, es decir, solo mostrando el objeto 3D, por lo tanto seleccionamos esa opción, se modificó un poco el código anterior y obtuvimos dicha máscara.
+Al inicio se comenzó con imágenes de prueba con fondos blancos o sin fondos, por lo que la extracción es sencilla, todo lo blanco se cambia a negro y el resto de colores diferentes al blanco se cambian al blanco, esto es trivial en python dado que con dos asignaciones obtenemos los resultados que se buscan.
 
-Por último se realizaron fotos sobre tres personas diferentes con un fondo verde, en esta parte ocurrieron unos pequeños problemas, por la situación no podíamos poner el chroma verde en otro mejor sitio así que lo pusimos delante de una ventana con una persiana y por donde pasaba la luz adquiría un color más azulado, esto hizo un poco más compleja la generación de la máscara pero se consiguió utilizando filtros con la ayuda de la librería OpenCV.
+\begin{lstlisting}[caption={Código obtención máscara 1}, label=cod:1]
+\end{lstlisting}
+\begin{python}
+	import numpy as np
+	import cv2 
+	
+	red = [0, 0, 255]
+	white = [255, 255, 255]
+	black = [0, 0, 0]
+	maskpath = 'img_mask.png'
+	img = cv2.imread('img.png', cv2.COLOR_RGB2BGR)
+	img[np.where((img==red).all(axis=2))] = black
+	img[np.where((img!=red).all(axis=2))] = white
+	cv2.imwrite(maskpath, img)
+\end{python}
 
-(revisar con el código y explicarlo mejor, poner imágenes de prueba en cada una de ellas)
+El código \ref{cod:1} es capaz de cambiar todo lo rojo a negro y el resto de los colores a blanco.
 
-\section{title}
+Este fue el inicio, de aquí se obtuvieron modelos 3D de prueba para ver el funcionamiento de la red, pero esto no sirve para las comparaciones que se quieren realizar con el proyecto Tech4diet[\cite{tech}], por lo tanto se tuvo que realizar una serie de fotos, donde se usaron dos cámaras diferentes de dos teléfonos móviles diferentes y el uso de una tela verde para facilitar este proceso.
+
+
+
+\begin{table}[ht]
+	\centering
+	{\scalefont{0.9}
+		\begin{tabular}{@{}lcc@{}}
+			\toprule
+			Modelo						& 	SM-A528B			&	Mi 9 SE	 	\\ \midrule
+			Número Cámaras 				& 	4           		& 	3           	\\
+			Cámara Principal			&  64 megapíxeles   	& 48 megapíxeles         	 	\\
+			Cámara ultra gran angular 	&  12 megapíxeles		& 13 megapíxeles	\\
+			Cámara telefoto		 		&  -					& 8 megapíxeles		\\
+			Cámara macro			 	&  5 megapíxeles		& -					\\
+			Cámara profundidad		 	&  5 megapíxeles		& -					\\
+			Resolución					&  10120x6328 píxeles	& 8000x6000 píxeles		\\
+			Apertura focal				&	f/1.8				& f/1.8					\\
+			Tamaño del sensor			& 1/1.72" pulgadas		& 1/2" pulgadas			\\ \bottomrule
+		\end{tabular}
+	}
+	\caption{Parámetros de las cámaras elegidas.}
+	\label{tablacamara}
+\end{table}
+\FloatBarrier
+
+Como se puede observar son cámaras con mucha resolución ambas por lo tanto a la hora de hacer las fotos no se encontró ningún problema.
+
+En el apartado anterior se comenta que las imágenes deben de tener un tamaño concreto para ello utilizamos la herramienta GIMP[]. Se preprocesaron las imágenes de manera que se necesitó recortar y escalar cada una de ellas. El recorte se hizo porque en la imagen se veía fondo que no era la tela verde y se busca que todo el fondo sea de color verde y por otro lado para el escalado de la imagen se hizo porque las fotos hechas tenían el tamaño de 3468x4624.
+
+Una vez recortada y escalada se crea una nuevo archivo de GIMP de tamaño 1024x1024 con el fondo verde y se añade la imagen preprocesada anteriormente.
+
+Ya teniendo la imagen como queremos se realiza el proceso de generación de máscara, para ello se modificó el código anterior, donde ya no queremos colores concretos sino que un rango de colores, en concreto queremos reconocer todos los tipos de verdes posibles.
+\pagebreak
+
+\begin{lstlisting}[caption={Código obtención máscara 2}, label=cod:2]
+\end{lstlisting}
+\begin{python}
+	import numpy as np
+	import cv2 
+	
+	maskpath = 'img_mask.png'
+	img = cv2.imread('img.png')
+	hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+	lower_green = np.array([36, 25, 25])
+	upper_green = np.array([70, 255,255])
+	mask = cv2.inRange(hsv, lower_green, upper_green)
+	result = cv2.bitwise_and(frame, frame, mask=mask)
+	b, g, r = cv2.split(result)
+	filter = g.copy()
+	ret,mask = cv2.threshold(filter,10,255, 1)
+	cv2.imwrite(maskpath, maskpath)
+\end{python}
+
+En ambos códigos \ref{cod:1} y \ref{cod:2} se inicializa la imagen y también los colores que se quieren reconocer, y después se realiza el proceso donde se va a generar la máscara, en el código \ref{cod:2} se utiliza el modelo HSV (Hue, Saturation, Brightness - Matiz, Saturación, Brillo) para el rango de color verde.
+
+
+
+\section{Obtención y estudio del resultado obtenido}
+
