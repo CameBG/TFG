@@ -26,7 +26,7 @@
 		\label{fig:figura1}
 	\end{figure}
 
-	Este trabajo cuenta como objetivo principal la reconstrucción del cuerpo a partir de imágenes dado que esto permite que los proyectos mencionados anteriormente se puedan exportar de una manera más económica, por lo tanto para que todo esto sea efectivo las mediciones han de corresponderse a las reales, por lo que el siguiente objetivo será comprobar, calcular y comparar los resultados obtenidos mediante el uso de diferentes cámaras RGB-D con nuestros resultados generados a partir de un modelo 3D generado con una sola imagen del cuerpo de la persona que será procesado en una red que alinea los píxeles de las imágenes con su correspondiente contexto global del modelo 3D [\cite{pifu}].
+	En este contexto, este trabajo de fin de grado (TFG) tiene como objetivo principal la reconstrucción de modelos 3D del cuerpo humano con textura, a partir de imágenes 2D  adquiridas con dispositivos de consumo como las disponibles en teléfonos móviles. Esto permite mejorar la portabilidad y coste de sistemas basados en redes de cámaras RGBD, como es el caso de Tech4diet[\cite{tech}]. En este TFG se analizará de forma comparativa la precisión de las medidas de los modelos 3D obtenidos en relación a las medidas obtenidas mediante los sistemas más costosos como el de Tech4diet.
 
 \newpage
 
@@ -113,23 +113,22 @@ Los trabajos realizados mediante visión artificial y redes neuronales están m�
 
 %\par O puedes citar dos o más fuentes al mismo tiempo: \citep{Barkan1995,Leighton2012}
 
-Este trabajo esta enmarcado dentro de un proyecto de investigación, y por lo tanto comparte el mismo objetivo general, proporcionar un sistema capaz de estudiar la evolución del cuerpo humano con el paso del tiempo mediante técnicas de visión 3D. 
-
-Para llegar al objetivo general es necesario disponer de una buena obtención del modelo 3D. Para ello, tenemos los siguientes objetivos:
 
 
 \begin{itemize}
-	\item{\textbf{Objetivo 1: Obtención del modelo 3D y textura a partir de una vista 2D de la persona.}} 
+	\item{\textbf{Objetivo 1: Analizar métodos del estado del arte para la reconstrucción del modelo 3D del cuerpo humano a partir de imágenes 2D.}} 
 	\\Para ello se realizarán tareas como:
+
+	\item{\textbf{Objetivo 2: Uso de PIFu[\cite{pifu}] para la obtención del modelo 3D y textura a partir de una vista 2D de la persona  }} \\
+	Para este objetivo se tendrán que realizar las siguientes tareas específicas:
 	\begin{itemize}
-		\item Estudio de los diferentes parámetros para el entrenamiento y prueba de la red.
+		\item Estudio de los diferentes parámetros para el entrenamiento y prueba de la red propuesta en PIFu.
 		\item Obtención de imagen del cuerpo y generación de máscara de la imagen.
 		\item Obtención y estudio de los resultados.
 		
-		
 	\end{itemize}
-	\item{\textbf{Objetivo 2: Comparativa del modelo 3D obtenido con el modelo obtenido por el proyecto Tech4Diet. }} \\
-	Para este objetivo se tendrán que realizar las siguientes tareas específicas:
+
+	\item{\textbf{Objetivo 3: Análisis comparativo de la precisión de las medidas obtenidas a partir de modelos 3D del cuerpo humano }} \\
 	\begin{itemize}
 		\item Estudio sobre las diferentes formas de realizar el cálculo de las diferencias obtenidas.
 		\item Alineamiento de objetos 3D.
