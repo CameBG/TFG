@@ -1,23 +1,31 @@
 \chapter{Reconstrucción del modelo 3D y textura a partir de una imagen}
 \label{Reconstrucción}
-En este capítulo se va a detallar como se consiguió la reconstrucción de un modelo 3D a partir de una imagen utilizando el método PIFu. El proceso se puede dividir en varios puntos:
+En este capítulo se va a detallar como se consigue la reconstrucción 3D del cuerpo humano a partir de una imagen utilizando el método PIFu[\cite{pifu}]. El proceso se puede dividir en varios puntos:
 
 \begin{itemize}
 	\item Estudio de los parámetros de test
 	\item Generación de la máscara de una imagen
-	\item Obtención y estudio del resultado obtenido
+	\item Obtención del modelo 3D
 \end{itemize}
 
 \section{Estudio de los parámetros de test}
 
-Una vez el proyecto creado e instalado, se realizó un estudio del mismo para poder comenzar a realizar la experimentación de este, para ello se realizó un estudio sobre como iniciar la fase testing del método PIFu y qué se necesitaba para comenzar a obtener resultados. Con ello pude observar que se necesitaba a parte de la imagen la máscara de ella, además estas imágenes han de tener unos tamaños concretos, unos de los aceptados por la red son 512x512 y 1024x1024.
+Lo primero que se tiene que realizar es la instalación del proyecto PIFu[\cite{pifu}] con sus respectivos requerimientos, una vez inicializado, se analizó el proyecto para poder comenzar con la experimentación y obtener modelos. 
+De esta manera, se estudió tanto la fase test como la fase de entrenamiento. En este caso solo se ha utilizado la fase de test ya que es la que genera los modelos 3D. Con este estudio se puede observar las necesidades de la red para su correcto funcionamiento, gracias a que se ha podido observar que en realidad la red necesita de 2 imágenes. Una de ellas es la imagen con la cual se busca hacer la representación 3D, y la otra es la máscara de esta imagen. Por otro lado, nos dimos cuenta de que las imágenes han de tener el mismo tamaño y que los tamaños donde mejor trabaja la red es sobre 512x512 píxeles y 1024x1024 píxeles. 
+Una vez realizado el estudio se puede comenzar a abarcar los siguientes puntos.
 
-\section{Generación de la máscara de una imagen}
+\section{Enmascaramiento de imágenes}
+
+Este proceso nos sirve para quitar información de la imagen inicial, PIFu[\cite{pifu}] por dentro realiza la eliminación del fondo, para ello utiliza la máscara de la imagen. Donde en la imagen dada, los píxeles que tengan el valor de $[255,255,255]$ mantendrá esa información ya que es útil para la red porque es la persona, y los píxeles donde el color sea $[0,0,0]$ será información descartada por la red y se eliminará de la imagen, entendiendo que es el fondo de esta.
+
+En este punto se va a explicar como se ha llegado a obtener la máscara de una imagen.
+
+\subsection{Enmascaramiento de imágenes con el fondo de un sólo color}
 
 Dado que se necesita aparte de la imagen de la persona, la máscara de esta se tuvo que realizar un método que fuese capaz de este proceso, utilizando como base la imagen que se le pasa a la red.
 
 Al inicio se comenzó con imágenes de prueba con fondos blancos o sin fondos, por lo que la extracción es sencilla, todo lo blanco se cambia a negro y el resto de colores diferentes al blanco se cambian al blanco, esto es trivial en python dado que con dos asignaciones obtenemos los resultados que se buscan.
-
+\clearpage
 \begin{lstlisting}[caption={Código obtención máscara 1}, label=cod:1]
 \end{lstlisting}
 \begin{python}
@@ -35,9 +43,11 @@ Al inicio se comenzó con imágenes de prueba con fondos blancos o sin fondos, p
 \end{python}
 
 El código \ref{cod:1} es capaz de cambiar todo lo rojo a negro y el resto de los colores a blanco.
+Con esto se pudo comprobar el funcionamiento de la red utilizando imágenes de prueba.
 
-Este fue el inicio, de aquí se obtuvieron modelos 3D de prueba para ver el funcionamiento de la red, pero esto no sirve para las comparaciones que se quieren realizar con el proyecto Tech4diet[\cite{tech}], por lo tanto se tuvo que realizar una serie de fotos, donde se usaron dos cámaras diferentes de dos teléfonos móviles diferentes y el uso de una tela verde para facilitar este proceso.
+\subsection{Enmascaramiento de fotos realizadas con teléfonos móviles.}
 
+El punto anterior nos sirvió para comprobar el correcto funcionamiento de la red, pero esto no sirve dado que se busca realizar comparaciones y analizar las métricas de los modelos utilizando el proyecto Tech4diet[\cite{tech}], para ello se hicieron una serie de fotos, donde se usaron dos cámaras diferentes de dos teléfonos móviles diferentes y el uso de una tela verde para facilitar el proceso de enmascaramiento.
 
 
 \begin{table}[ht]
@@ -64,12 +74,21 @@ Este fue el inicio, de aquí se obtuvieron modelos 3D de prueba para ver el func
 
 Como se puede observar son cámaras con mucha resolución ambas por lo tanto a la hora de hacer las fotos no se encontró ningún problema.
 
-En el apartado anterior se comenta que las imágenes deben de tener un tamaño concreto para ello utilizamos la herramienta GIMP[]. Se preprocesaron las imágenes de manera que se necesitó recortar y escalar cada una de ellas. El recorte se hizo porque en la imagen se veía fondo que no era la tela verde y se busca que todo el fondo sea de color verde y por otro lado para el escalado de la imagen se hizo porque las fotos hechas tenían el tamaño de 3468x4624.
+\subsubsection{Preprocesado de las fotos}
+Una vez hechas las fotos, estas tuvieron que pasar por un preprocesado antes del enmascaramiento y sucesivamente de usarlas en la red. Para este preprocesado se utilizó la herramienta GIMP[\cite{gimp}]. 
+El proceso que se hizo es el siguiente:
+\begin{enumerate}
+	\item Recorte con la información necesaria.
+	\item Escalar imagen.
+	\item Creación de un nuevo archivo 1024x1024 con fondo verde y pegar la imagen obtenida después de escalarla.
+	\item Retocar colores.
+\end{enumerate}
+Donde el primer punto se hizo porque como se puede ver en la figura \ref{fig:proceso} en la imagen inicial de la que se parte, la tela verde no ocupa toda la imagen y se busca mantener ese fondo verde.
+El segundo punto, es el escalado, pues las imágenes parten de un tamaño de 3468x4624 píxeles, aún habiendo sido recortadas, el tamaño era superior a 1024, por lo que se escala de manera que se cumpla con dicho tamaño.
+Una vez hecho esto, se crea un archivo con las medidas necesarias para la red, con el fondo verde y se coloca la imagen después de su escalado.
+En ocasiones nos hemos encontrado con errores a la hora del proceso de enmascarado, esto es porque la tela deja pasar la luz y se refleja en el cuerpo, para ello utilizamos un pincel con poca opacidad del color suplementario, en este caso es un color morado, se pinta por encima y con eso se contrarresta la luz verde.
 
-Una vez recortada y escalada se crea una nuevo archivo de GIMP de tamaño 1024x1024 con el fondo verde y se añade la imagen preprocesada anteriormente.
-
-Ya teniendo la imagen como queremos se realiza el proceso de generación de máscara, para ello se modificó el código anterior, donde ya no queremos colores concretos sino que un rango de colores, en concreto queremos reconocer todos los tipos de verdes posibles.
-\pagebreak
+Ya teniendo la imagen como se necesita, se realiza el proceso de generación de máscara, para ello se modificó el código \ref{cod:1}, donde ya no se quiere quitar un color en concreto, si no que en este caso es un rango de color, en este caso se quiere reconocer todos los tipos de verdes posibles.
 
 \begin{lstlisting}[caption={Código obtención máscara 2}, label=cod:2]
 \end{lstlisting}
@@ -89,19 +108,23 @@ Ya teniendo la imagen como queremos se realiza el proceso de generación de más
 	ret,mask = cv2.threshold(filter,10,255, 1)
 	cv2.imwrite(maskpath, maskpath)
 \end{python}
+\pagebreak
 
 En ambos códigos \ref{cod:1} y \ref{cod:2} se inicializa la imagen y también los colores que se quieren reconocer, y después se realiza el proceso donde se va a generar la máscara, en el código \ref{cod:2} se utiliza el modelo HSV (Hue, Saturation, Brightness - Matiz, Saturación, Brillo) para el rango de color verde.
 
+\section{Obtención del modelo 3D}
 
+La obtención del modelo 3D una vez tenemos la máscara de la imagen es trivial, pues tan solo hay que utilizar la red de PIFu[\cite{pifu}] con la máscara y su imagen respectiva.
 
-\section{Obtención y estudio del resultado obtenido}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{imagenes/proceso1.png}
+	\caption{Pipeline usada en para la obtención del modelo. De izquierda a derecha, dada una imagen $I$, se escala, recorta y se ajustan los colores generando la imagen $i$ y se genera la máscara de la imagen $m_i$ a partir de $i$. La red de PIFu[\cite{pifu}] utilizará las imágenes $i$ y $m_i$ para generar el modelo que se ve a la derecha.}
+	\label{fig:proceso}
+\end{figure}
 
-Este punto lo podemos dividir en varias partes debido a que el estudio que se ha realizado es extenso. 
+La figura \ref{fig:proceso} detalla el proceso utilizado. En este proceso se ve como reacciona la red cuando añades ruido en la imagen.
 
-Por un lado la obtención del modelo es simple, a la red se le pasa la foto capturada por la cámara y  su respectiva máscara calculada con el punto anterior.
+En el apartado \ref{experimentacion} se explica el estudio de los modelos, donde se pueden ver más ejemplos de modelos 3D obtenido por la red.
 
-Estos son los resultados obtenidos de con esta red neuronal:
-
-
-Como podemos ver hay muchos errores, la mayoría similares, sobretodo hay problemas en las piernas y brazos.
 

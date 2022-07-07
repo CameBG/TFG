@@ -7,25 +7,29 @@
 
 \chapter{Conclusiones}
 \label{conclusiones}
-En este capítulo se resaltan las principales conclusiones obtenidas como consecuencia del trabajo desarrollado y a su vez líneas futuras derivadas al trabajo.
+En este capítulo se resaltan las principales conclusiones obtenidas como consecuencia del trabajo desarrollado y a su vez líneas futuras derivadas de este.
 
 \section{Conclusión}
 
-En el presente trabajo se han planteado una serie de objetivos relacionados con la necesidad de poder ser capaces de generar un modelo del cuerpo humano lo más real posible con el uso de una cámara de teléfono móvil y con una sola vista. 
+En el presente trabajo se han planteado una serie de objetivos relacionados con la necesidad de generar un modelo 3D del cuerpo humano, con el uso de una cámara de teléfono móvil y con una sola vista. Se ha seleccionado el uso de una cámara de teléfono móvil porque actualmente toda persona adulta tiene uno, y por lo tanto es un sistema muy flexible y portable.
 
-Se ha seleccionado el uso de una cámara de teléfono móvil porque actualmente toda persona adulta tiene uno, y por lo tanto es un sistema muy flexible y por supuesto portable.
+En relación con el primer objetivo planteado se ha realizado una revisión de varios métodos del estado del arte que abordan la obtención de modelos 3D del cuerpo a partir de imágenes 2D, con énfasis en aquellos que utilizan aprendizaje profundo. Analizado el estado del arte se ha valorado que el método más adecuado es PIFu.
 
-En relación al estudio de la red profunda que se ha usado, hemos podido comprobar que ha sido alimentada y entrenada por modelos que tienen un físico más normativo, dado que cada vez que se ha probado con un cuerpo menos normativo más errores nos hemos encontrado en el proceso, como por ejemplo una "pérdida" de peso considerable en comparación cuando observabas los modelos en ángulos más ladeados.
+Gracias al estudio anterior, el segundo objetivo ya trata sobre el análisis y adaptación del modelo seleccionado. Se puede concluir con que el funcionamiento de la red es complejo, ya que la se basa en funciones continuas e implícitas (para la reconstrucción de las superficies y para la inferencia de textura) para conseguir los resultados de manera eficiente. Además esta red requiere de parámetros concretos en las imágenes, esto es porque los tensores están preparados para ciertos tamaños, no se puede utilizar cualquier imagen. 
 
-En relación al estudio de los resultados obtenidos se concluye con que hay ciertos ángulos que favorecen a la red, hemos podido comprobar que el ángulo donde se ve la espalda nos ha proporcionado modelos con menos problemas, pero que este estudio es mejorable. Se ha repetido mucho que la vista se ve perfecta desde el ángulo de la imagen pero cuando empiezas a mirar el resto de ángulos se ven muchos desperfectos y deformidades.
+En cuanto el análisis comparativo de la precisión de las medidas obtenidas en los modelos 3D, se ha concluido con que esta red requiere de más información que una vista y que se ha de re-entrenar la red con más tipos de cuerpo, ya que por estas razones las medidas no se acercan tanto a la realidad. Actualmente estos resultados no son viables en el ámbito sanitario.
 
+En referencia al estudio de la red profunda, hemos podido comprobar que la red ha sido alimentada y entrenada por modelos que tienen un físico más normativo, dado que cada vez que se ha probado con un cuerpo menos normativo más errores nos hemos encontrado en el proceso, como por ejemplo una pérdida de peso considerable en comparación cuando observabas los modelos en ángulos más ladeados.
 
+Por último, respecto al estudio de los resultados obtenidos se concluye con que hay ciertos ángulos que favorecen a la red, hemos podido comprobar que el ángulo donde se ve la espalda nos ha proporcionado modelos con menos problemas. También se han probado con imágenes con ruido, donde se añade un cubo verde para que se confunda con el fondo, y la red ha sido capaz de dar resultados, aun que dependiendo de donde se encontrara este cubo proporcionaba más o menos errores. Igualmente, en la mayoría de las ocasiones la vista del modelo 3D se ve perfecta desde el ángulo de la imagen pero cuando empiezas a mirar el resto de ángulos se ven muchos desperfectos y deformidades.
+
+\clearpage
 \section{Líneas Futuras}
 
-Como consecuencia del trabajo desarrollado se han derivado una serie de líneas futuras entre las que podemos destacar:
+Como consecuencia del trabajo llevado a cabo se han derivado una serie de líneas futuras entre las que podemos destacar:
 
-Ampliación del uso de la red a multivista, es decir pasar de una vista a varias, ya que como se ha comentado en las conclusiones, se puede observar que usualmente el ángulo utilizado como imagen, se observa que lo representa bien, el problema ocurre una vez se observa desde más ángulos, esto se soluciona con diferentes vistas a la vez, y esta red se puede exportar a ello.
+Ampliación del uso de la red a multivista, ya que como se ha comentado en las conclusiones, se puede observar que el ángulo utilizado en la imagen 2D, se representa bien en el modelo 3D, el problema ocurre una vez se observa desde más ángulos, esto se puede solucionar dándole a la red más información con diferentes ángulos. Además PIFu[\cite{pifu}] es exportable a multivista, por lo que facilita este trabajo.
 
-Entrenamiento con diferentes modelos sobre diferentes tipos de cuerpos humanos para obtener mejores resultados, y prepararlo para multivista.
+Entrenamiento con diferentes modelos sobre diferentes tipos de cuerpos humanos para obtener mejores resultados, y prepararlo para multivista, para ello se necesitará un amplio DataSet.
 
-Comparación de los resultados obtenidos con multivista y una vista.
+Por último realizar comparaciones de los resultados obtenidos con multivista y una vista.

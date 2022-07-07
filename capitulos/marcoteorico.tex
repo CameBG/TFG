@@ -9,7 +9,7 @@
 \label{Antecedentes Metodológicos y Tecnológicos}
 En el siguiente capítulo, se presentan los métodos que son necesarios
 conocer para el planteamiento apropiado del método usado para la reconstrucción del cuerpo humano 3D, que constituye el núcleo del presente trabajo.
-Primero, se detallará el algoritmo Marching Cubes, que es utilizado más tarde en PIFu que a su vez es el siguiente punto y por último veremos como se van a calcular las comparaciones entre dos modelos 3D diferentes. 
+Primero, se detallará el algoritmo Marching Cubes, que es utilizado más tarde en PIFu que a su vez es el siguiente punto y, por último, veremos como se van a calcular las comparaciones entre dos modelos 3D diferentes. 
 
 \section{Marching Cubes}
 Marching Cubes [\cite{marchingcube}] es un algoritmo utilizado en la reconstrucción del cuerpo humano 3D que es usado en PIFu, este algoritmo genera mallas triangulares de densidad constante desde una función implícita. 
@@ -28,7 +28,7 @@ Marching Cubes procesa cada celda de volumen de forma independiente.[\cite{march
 
 
 \section{PIFu: Pixel-aligned Implicit function}
-Como se ha dicho antes en el capítulo \ref{sec:Introducción} PIFu [\cite{pifu}] alinea de manera local las características individuales a nivel de píxel con el contexto global de todo el objeto, esto lo hace de una manera totalmente convolucional y ayuda a no requerir un alto uso de memoria como en otro tipo de representaciones como las que se hacen por vóxel[\cite{bodynet}], esto es importante dado que PIFu es capaz de reconstruir aparte de la forma y pose del cuerpo humano, la ropa, el cabello y los accesorios; por lo tanto la reconstrucción de estos puede ser muy deformable, detallada y con una topología complicada.
+Como se ha explicado en el capítulo \ref{sec:Introducción} PIFu [\cite{pifu}] alinea de manera local las características individuales a nivel de píxel con el contexto global de todo el objeto, esto lo hace de una manera totalmente convolucional y ayuda a no requerir un alto uso de memoria como en otro tipo de representaciones como las que se hacen por vóxel[\cite{bodynet}], esto es importante dado que PIFu es capaz de reconstruir aparte de la forma y pose del cuerpo humano, la ropa, el cabello y los accesorios; por lo tanto la reconstrucción de estos puede ser muy deformable, detallada y con una topología complicada.
 
 \begin{figure}[!h]
 	\centering
@@ -42,7 +42,7 @@ Inicialmente se entrena un encoder (codificador) que aprenda sobre vectores de c
 
 \subsection{Reconstrucción de la superficie}
 
-Para realizar una buena reconstrucción de manera eficiente en PIFu utiliza una función implícita para definir así la superficie, esta función consiste en un codificador $g$ de imágenes totalmente convolucional y una función $f$ continua e implícita representada por una red MLP (multi-layer perceptrons), donde la superficie esta definida como un conjunto de nivel de:
+Para realizar una buena reconstrucción de manera eficiente, PIFu utiliza una función implícita para definir así la superficie, esta función consiste en un codificador $g$ de imágenes totalmente convolucional y una función $f$ continua e implícita representada por una red MLP (multi-layer perceptrons), donde la superficie esta definida como un conjunto de nivel de:
 \begin{equation}
 	\label{eq:1}
 	f(F(x), z(X)) = s : s \in \mathbb{R}
@@ -58,14 +58,14 @@ El punto principal de esta función implícita es que aprende a partir del espac
 	\label{fig:figura8}
 \end{figure}
 
- Para la reconstrucción de la superficie, se representa como un conjunto de nivel de 0,5 dentro de un campo continuo 3D:
- \begin{equation}
- 	\label{eq:2}
- 	f_{v}^{*} = \begin{cases}
- 				1\text{,}  & \text{X esta dentro de la superficie de la malla}\\
- 				0\text{,}  & \text{resto de casos}\\
- 			\end{cases}
- \end{equation}
+Para la reconstrucción de la superficie, se representa como un conjunto de nivel de 0,5 dentro de un campo continuo 3D:
+\begin{equation}
+	\label{eq:2}
+	f_{v}^{*} = \begin{cases}
+		1\text{,}  & \text{X esta dentro de la superficie de la malla}\\
+		0\text{,}  & \text{resto de casos}\\
+	\end{cases}
+\end{equation}
 
 Se entrena la función implícita que alinea píxeles $f_{v}$ minimizando la media del mean squared error (MSE):
 
@@ -74,7 +74,7 @@ Se entrena la función implícita que alinea píxeles $f_{v}$ minimizando la med
 	\mathcal{L}_{V} = \frac{1}{n} 
 	\sum_{i=1}^{n} | f_{v} (F_{V}(x_{i}) z(X_{i})) - f_{v}^{*}(X_{i}) |^{2}
 \end{equation}
- 
+
 Donde $X_{i} \in \mathbb{R}^{3}$, $F_{V}(x) = g(I(x))$ es la característica de la imagen del codificador de imágenes $g$ en $x = \pi(X)$ y $n$ es el número de puntos muestrados. Dadas una imagen y la malla 3D correspondiente a la imagen que está espacialmente alineada con la imagen, los parámetros del codificador $g$ y de PIFu $f_{v}$ se actualizan unidas minimizando con la ecuación \ref{eq:3} como [\cite{eq3}] demuestra, el entrenamiento de un codificador de imágenes con un subconjunto de píxeles no le hace daño a la convergencia en comparación a entrenarlo con todos los píxeles[\cite{pifu}]. 
 
 Durante la obtención de la superficie, se muestrea el campo de probabilidad sobre el espacio 3D y se extrae la iso-superficie el campo de probabilidad con un umbral de 0.5 utilizando Marching Cube. 
@@ -104,7 +104,7 @@ Donde $ X_{i}^{'} = X_{i} + \epsilon$. Se usa un $d = 1.0$ cm para todos los exp
 
 \section{Cálculo de distancias}
 
-Dado que se necesita saber cuán capaz es de representar la realidad este método se necesita realizar una serie de comparaciones, para ello vamos a utilizar dos métodos diferentes.
+Puesto que estamos en un ámbito sanitario, se necesitan comparaciones sobre las medidas obtenidas a partir de los modelos 3D del cuerpo humano ya que estas deben ser precisas, para ello, se van a explicar dos métodos diferentes. 
 
 \subsection{Distancia Chamfer}
 Por un lado tenemos la distancia de Chamfer es una métrica de evaluación, en este caso la aplicaremos sobre dos nubes de puntos (la obtenida por nuestro método y la del proyecto de Tech4diet[\cite{tech}]). Tiene en cuenta la distancia de cada punto. Para cada punto en cada nube, esta distancia calcula el punto más cercano en el otro conjunto de puntos y suma el cuadrado de la distancia. [\cite{linyi_2022}]
@@ -129,17 +129,21 @@ Por otro lado tenemos la distancia de Hausdorff que al igual que la de Chamfer e
 
 Donde $a$ y $b$ son los puntos de los conjuntos $S_{1}$ y $S_{2}$ respectivamente y $d(a,b)$ es cualquier métrica entre esos dos puntos, esta puede ser la distancia euclídea o cualquier otra.
 
-\section{Herramientas tecnológicas}
 
-En este punto se van a detallar todas las aplicaciones que se han utilizado durante este trabajo.
+\section{Herramientas tecnológicas}
+En este punto se detallan las aplicaciones utilizadas para realizar este trabajo.
 
 \subsection{GIMP}
-asdfasdf
+GIMP (GNU Image Manipulation Program)[\cite{gimp}] es una aplicación de imágenes digitales en forma de mapa de bits. Esta aplicación se trata de un software de código abierto y gratuito, englobado dentro del proyecto GNU y disponible bajo licencia pública general de GNU y GNU Lesser General Public License
 
+Este programa ha sido utilizado para crear archivos con unas medidas concretas, escalar imágenes y recortarlas, para el proceso de generación de máscara comentado en el punto \ref{Reconstrucción}.
 \subsection{MeshLab}
-asdfdf
+MeshLab [\cite{MeshLab}] es un sistema de software de procesamiento de mallas 3D, este software al igual que GIMP es libre (de código abierto) y gratuito y disponible bajo la licencia pública general de GNU. 
+
+Con MeshLab hemos podido ver los modelos obtenidos por PIFu con la textura inferida y hemos utilizado sus herramientas para poder calcular la distancia de Hausdorff y para exportar los modelos como nubes de puntos, utilizadas mas tarde para calcular la distancia de Chamfer.
 \subsection{Blender}
-asdfasdf
-\subsection{CloudComparer}
-asdfasd
+Blender [\cite{blender}] es un programa informático multiplataforma, dedicado especialmente al modelado, iluminación, renderizado, animación y creación de gráficos 3D. Este programa fue inicialmente distribuido de manera gratuita, pero no constaba como software libre, aunque tiempo después pasó a ser software libre.
+
+Se ha utilizado Blender para el preprocesado de los modelos 3D.
+
 
